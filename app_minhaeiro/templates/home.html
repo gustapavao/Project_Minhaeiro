@@ -26,7 +26,7 @@
             </ul>
             {% endfor %}
 
-        <a href="new_card"><button>Adicionar cartão</button></a>
+        <a id="no_decoration"href="new_card" ><button class="btn">Adicionar cartão</button></a>
         <h3>Adicionar nova transação</h3>
         <form id='form' method="POST">
             {% csrf_token %}
@@ -44,13 +44,14 @@
                 <option value="Adicionar">Adicionar</option>
                 <option value="Retirar">Retirar</option>
             </select>
-            <select name="card" id="" class="form-control">
+            <select required name="card" id="card-selected" class="form-control">
                 {% for card in cards %}
                     <option value="{{card.name}}">{{card.name}}</option>
                 {% endfor %}
             </select>
+            <input type="number" name="n_parcelas" id="n_parcelas" class="form-control" placeholder="A vista = 1">
         </div>
-        <button class='btn' type="submit">Add transaction</button>
+        <button class='btn' type="submit">Add</button>
         </form>
         <h3>Histórico</h3>
         <ul id='list' class='list'>
@@ -58,11 +59,11 @@
             {%for expense in expenses%}
             {%if expense.expense_type == "Adicionar" %}
             <li class='plus'>
-                {{expense.name}} <span>- {{expense.amount}}</span>
+                {{expense.name}} <span>+ {{expense.amount}}</span>
             </li>
             {% else %}
                 <li class='minus'>
-                    {{expense.name}} <span>- {{expense.amount}}</span>
+                    {{expense.name}}  -  {{expense.date}}   <span>-{{expense.amount}}</span>
                 </li>   
             {% endif %}
             {% endfor %}

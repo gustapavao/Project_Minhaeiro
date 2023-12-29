@@ -5,15 +5,19 @@
 <form action="" method="post">
         {% csrf_token %}
         <div class="form-control">
-            <label for="" class="name">Cartão</label>
+            <label for="text" class="name">Cartão</label>
             <input type="name" required name="name" id="name" placeholder="Nome do cartão...">
         </div>
         <div class="form-control">
-            <label for="" class="buyday">Dia do vencimento</label>
+            <label for="text" class="buyday">Dia do vencimento</label>
             <input type="date" required name="pay_day" id="pay_day">
         </div>
+        <div class="form-control">
+            <label for="text" class="close-fature">Fechamento da fatura</label>
+            <input type="date" name="close_fature" id="close_fature">
+        </div>
         <div class=form-control>
-            <label for="" class="logo">
+            <label for="text" class="logo">
                 Logo
             </label>
             <input type="file" name="logo_card" id="logo_card">
