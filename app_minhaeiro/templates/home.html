@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block start%}
+
+    <h2>Minhaeiro</h2>
+
+<div class="container">
+    <h4>Saldo</h4>
+            <h1 id='balance'>{{profile.balance}}</h1>
+        <div class="inc-exp-container">
+            <div>
+                <h4>Receita</h4>
+                <p id='money-plus' class='money plus'>+ R${{profile.income }}</p>
+            </div>
+            <div>
+                <h4>Despesas</h4>
+                <p class="money minus" id='money-minus'>- R${{profile.expenses}}</p>
+            </div>
+        </div>
+        <h3>Cartões</h3>
+        <div>
+            <ul id='list' class='list'>
+                {%for card in cards%}
+                <li>
+                    <img src={{card.logo}} alt="">{{card.name}}  <span> Fatura: {{card.pay_day}}</span>
+                </li>
+            </ul>
+            {% endfor %}
+
+        <a href="new_card"><button>Adicionar cartão</button></a>
+        <h3>Adicionar nova transação</h3>
+        <form id='form' method="POST">
+            {% csrf_token %}
+                <div class="form-control">
+                <label for="text">Descrição</label>
+                <input type="text" required name="text" id="text" placeholder='Enter text...'>
+            </div>
+        <div class="form-control">
+            <label for="amount">Valor</label>
+            <input type="number" required name="amount" id="amount" placeholder="Enter amount...">
+        </div>
+        <div class="form-control">
+            <label for="text"></label>
+            <select name="expense_type" required id="select-form" class="form-control">
+                <option value="Adicionar">Adicionar</option>
+                <option value="Retirar">Retirar</option>
+            </select>
+            <select name="card" id="" class="form-control">
+                {% for card in cards %}
+                    <option value="{{card.name}}">{{card.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button class='btn' type="submit">Add transaction</button>
+        </form>
+        <h3>Histórico</h3>
+        <ul id='list' class='list'>
+
+            {%for expense in expenses%}
+            {%if expense.expense_type == "Adicionar" %}
+            <li class='plus'>
+                {{expense.name}} <span>- {{expense.amount}}</span>
+            </li>
+            {% else %}
+                <li class='minus'>
+                    {{expense.name}} <span>- {{expense.amount}}</span>
+                </li>   
+            {% endif %}
+            {% endfor %}
+            
+        </ul>
+
+    </div>
+
+
+
+
+{% endblock %}
